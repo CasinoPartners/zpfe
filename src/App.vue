@@ -148,14 +148,6 @@
       </div>
     </footer>
 
-    <div v-if="showMobileFooter" class="mobile-footer is-hidden-tablet">
-      <div class="mobile-footer-button" @click.prevent="toggleMenu">Menu</div>
-      <router-link style="color:#e0f2ff;" to="/">Games</router-link>
-      <router-link v-if="sportsEnabled" style="color:#e0f2ff;" to="/sports">Sports</router-link>
-      <a v-if="supportChatEnabled" style="color:#e0f2ff;" href="#" @click.prevent="openSupportChat">Support</a>
-      <div v-if="chatEnabled && loggedIn" class="mobile-footer-button" @click.prevent="toggleChat">Chat</div>
-    </div>
-
     <AuthModal v-if="authModalVisible" :tab="authModalCurrentTab" @close="authModalVisible = false" />
     <WalletModal v-if="walletModalVisible" :tab="walletModalTab" @close="walletModalVisible = false" />
     <AccountModal v-if="accountModalVisible" :tab="accountModalTab" @close="accountModalVisible = false" />
