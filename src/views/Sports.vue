@@ -36,6 +36,7 @@
       }
     },
     async mounted() {
+    this.setupListerners();
       if(this.loggedIn) {
         const response = await this.$securedAxios({
           method: "get",
@@ -73,6 +74,49 @@
             token,
           }
         });
+      },
+      setupListerners() {
+        if (typeof window.postMessage !== 'undefined') {
+    let c;
+    let d;
+    if (typeof window.addEventListener !== 'undefined') {
+      c = 'addEventListener';
+      d = 'message';
+    } else if (typeof window.attachEvent !== 'undefined') {
+      c = 'attachEvent';
+      d = 'onmessage';
+    }
+    const m = (y) => {
+      let c = y.data instanceof Object ? y.data : JSON.parse(y.data);
+      // some actions should be here
+      // message types are
+      // slip:play
+      // slip:confirm
+      // content:height;  is mandatory message for iframe content height, angular iframe trader application shouldn't have scroll. only main window should have scroll(3rd partner )
+      // window:scrollTop  is mandatory
+      switch (c.messageType) {
+        case 'content:height':
+          console.log('c.messageData----->', c.messageData);
+          if (c.messageData < 300) {
+            window['pgsbFrame'].height = 900;
+          } else {
+            window['pgsbFrame'].height = c.messageData;
+          }
+          break;
+        case 'window:scrollTop':
+          window.scrollTo(0, 0);
+          break;
+        case 'slip:play':
+          break;
+        case 'slip:confirm':
+          break;
+      }
+
+    };
+    window[c](d, (x) => {
+      m(x)
+    }, false);
+  }
       }
     }
   });
