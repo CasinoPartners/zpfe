@@ -67,6 +67,7 @@
           container: 'pgsb-con', // for html frame container
           origin: document.referrer, // parent site origin url
           sourceUrl: 'https://sharkcasino-sl.sporting-dev.com',
+          mobileSourceUrl: 'https://m-sharkcasino-sl.sporting-dev.com',
           params: {
             language: 'en',
             token,
